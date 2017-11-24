@@ -47,6 +47,7 @@ router.patch('/artists/:id', (req, res) => {
   Artist.findById(id)
     .then((artist) => {
       if (artist){
+        //this form of code, where you have function(err, raw) within the parameters of Artist.update is the older style of handling the errors, the .then and .catch are the modern way of handling the errors and they are interchangeable.
         Artist.update(artist, attributes, function (err, raw) {
           if (err){
             res.status(400).json({error: err})

@@ -176,3 +176,49 @@ Run in a terminal:
         })
     })
     ```
+1. Challenges were to create on our own the Delete and Update methods
+1. My **delete** method was this:
+    ```javascript
+    router.delete('/artists/:id', (req, res) => {
+      const id = req.params.id
+      Artist.findById(id)
+      .then((artist) => {
+        if (artist){
+          Artist.remove(artist, function(err) {
+            if (err) {
+              res.status(400).json({error: err}) 
+            }
+            //deleted by this point
+          })
+          res.json(artist)
+        }
+        else {
+          res.status(404).json({error: `Artist not found with id: ${id}`})  
+        }
+      })
+      .catch((errorMessage) => {
+        res.status(400).json({error: errorMessage})
+      })
+    })
+    ```
+1. and my **update** method was this:
+    ```javascript
+    Artist.findById(id)
+    .then((artist) => {
+      if (artist){
+        //this form of code, where you have function(err, raw) within the parameters of Artist.update is the older style of handling the errors, the .then and .catch are the modern way of handling the errors and they are interchangeable.
+        Artist.update(artist, attributes, function (err, raw) {
+          if (err){
+            res.status(400).json({error: err})
+          } 
+            res.json(artist)
+            console.log('The raw response from Mongo was ', raw);
+        });
+
+      }
+      else{
+        res.status(404).json({error: `Artist not found with id: ${id}`})
+      }
+    })
+    ```
+    * A note on the way I've implemented the update method:<br>This was taken from some code examples I found either online or in the mongoosejs documentation.<br>It is considered the older way of handling the errors with the function (err, raw) within the parameters of the Artist.update call.<br>The modern way is to use the .then and .catch functions you see elsewhere in this code.
