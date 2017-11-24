@@ -221,4 +221,6 @@ Run in a terminal:
       }
     })
     ```
-    * A note on the way I've implemented the update method:<br>This was taken from some code examples I found either online or in the mongoosejs documentation.<br>It is considered the older way of handling the errors with the function (err, raw) within the parameters of the Artist.update call.<br>The modern way is to use the .then and .catch functions you see elsewhere in this code.
+    * **A note on the way I've implemented the update method:**
+    * This was taken from some code examples I found either online or in the mongoosejs documentation.<br>It is considered the older way of handling the errors with the *function (err, raw)* within the parameters of the Artist.update call.<br>The modern way is to use the *.then* and *.catch* functions you see elsewhere in this code.
+    * The update method returns the artist upon success but inspecting the data returned reveals that it is the old data not the new data, the optional extra paramater to the Artist.update command (which isn't shown above) is the *{new: true}* parameter which tells it to use the new version of the object in its code block.

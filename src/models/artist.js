@@ -3,6 +3,9 @@ const mongoose = require('./init') // works from the 'module.exports = mongoose'
 
 // (This code came from the example at mongoosejs.com)
 // define our model
-const Artist = mongoose.model('Artist', {name: String});
+const Artist = mongoose.model('Artist', {name: {
+  type: String,
+  required: true
+}});
 
 module.exports = Artist

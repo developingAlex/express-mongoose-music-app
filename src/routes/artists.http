@@ -7,7 +7,7 @@ POST http://localhost:8001/artists
 Content-Type: application/json
 
 {
-  "name": "Spice Girls"
+  "notname": "Spice Girls"
 }
 
 ###
@@ -32,4 +32,11 @@ Content-Type: application/json
   "name": "Mr Mandle"
 }
 
+###
 
+PATCH http://localhost:8001/artists/5a176abe9450297b1c736a54
+Content-Type: application/json
+
+{
+  "name": ""
+}

@@ -48,12 +48,22 @@ router.patch('/artists/:id', (req, res) => {
     .then((artist) => {
       if (artist){
         //this form of code, where you have function(err, raw) within the parameters of Artist.update is the older style of handling the errors, the .then and .catch are the modern way of handling the errors and they are interchangeable.
-        Artist.update(artist, attributes, function (err, raw) {
+        Artist.update({_id: artist._id }, attributes, { new:true, runValidators: true }, function (err, raw) {
+          if (raw){
+            console.log(err)
+          }
+          // assert.ok(err.errors['name']);
+          // if (err.errors['name']){
+          //   res.status(400).json({error: err})
+          // }
           if (err){
             res.status(400).json({error: err})
-          } 
+          }
+          else{
+
             res.json(artist)
             console.log('The raw response from Mongo was ', raw);
+          }
         });
 
       }
