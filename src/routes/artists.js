@@ -40,7 +40,35 @@ router.post('/artists', (req, res) =>{
     })
 })
 
-//router.patch ...
+router.patch('/artists/:id', (req, res) => {
+  const id = req.params.id
+  const attributes = req.body
+
+  Artist.findById(id)
+    .then((artist) => {
+      if (artist){
+        Artist.update(artist, attributes, function (err, raw) {
+          if (err){
+            res.status(400).json({error: err})
+          } 
+            res.json(artist)
+            console.log('The raw response from Mongo was ', raw);
+        });
+
+      }
+      else{
+        res.status(404).json({error: `Artist not found with id: ${id}`})
+      }
+    })
+
+
+    // .then((artist) => {
+    //   res.status(200).json(artist)
+    // })
+    // .catch((errorMessage) => {
+    //   res.status(400).json({error: errorMessage})
+    // })
+})
 
 router.delete('/artists/:id', (req, res) => {
   const id = req.params.id

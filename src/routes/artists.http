@@ -13,3 +13,23 @@ Content-Type: application/json
 ###
 
 DELETE http://localhost:8001/artists/5a1794096316bf1b89147150
+
+###
+
+PATCH http://localhost:8001/artists/5a176abe9450297b1c736a54
+Content-Type: application/json
+
+{
+  "name": "Alex Palma"
+}
+
+###
+
+PATCH http://localhost:8001/artists/5a1768a337d7dc78cca67953
+Content-Type: application/json
+
+{
+  "name": "Mr Mandle"
+}
+
+
