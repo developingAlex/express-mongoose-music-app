@@ -40,4 +40,28 @@ router.post('/artists', (req, res) =>{
     })
 })
 
+//router.patch ...
+
+router.delete('/artists/:id', (req, res) => {
+  const id = req.params.id
+  Artist.findById(id)
+  .then((artist) => {
+    if (artist){
+      Artist.remove(artist, function(err) {
+        if (err) {
+          res.status(400).json({error: err}) 
+        }
+        //deleted by this point
+      })
+      res.json(artist)
+    }
+    else {
+      res.status(404).json({error: `Artist not found with id: ${id}`})  
+    }
+  })
+  .catch((errorMessage) => {
+    res.status(400).json({error: errorMessage})
+  })
+})
+
 module.exports = router

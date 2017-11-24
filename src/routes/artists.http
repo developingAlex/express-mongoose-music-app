@@ -9,3 +9,7 @@ Content-Type: application/json
 {
   "name": "Spice Girls"
 }
+
+###
+
+DELETE http://localhost:8001/artists/5a1794096316bf1b89147150
