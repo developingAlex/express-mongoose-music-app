@@ -68,3 +68,18 @@
     1. Other commands that may be useful:
         * `sudo service mongod stop`
         * `sudo service mongod restart`
+1. (Note that we don't need to do anything analogous to rails' **db:migrate** with MongoDB)
+1. Add some new artists to the seeds file:
+    ```javascript
+    Artist.create({ name: 'Tiesto'})
+    //when the creation is done, the below will be called
+    .then((artist) => {
+      console.log('created artist', artist)
+    })
+    ```
+1. ran `node src/models/seeds.js` for the second time, too long to type so adding it to our **package.json** scripts for `yarn seed` shorthand
+    ```javascript
+    "seed": "node src/models/seeds.js"`
+    ```
+1. Note: MongoDB stores the model id is as a randomly hashed id (as oppposed to incrementing integer id like we had before in our rails apps) so there is no risk of there being a conflict when you have multiple mongodb servers working away adding different new data to themselves.
+1. After we ran the `node src/models/seeds.js` or `yarn seed` command we want to comment out the create statements that were run so that they don't run in subsequent runs.
