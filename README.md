@@ -131,11 +131,22 @@
       //ask the model for the document with this id
       Artist.findById(id)
         .then((artist) => {
-          res.json(artist)
+          if (artist){
+            res.json(artist)
+          }
+          else {
+            res.status(404).json({error: `Artist not found with id: ${id}`})  
+          }
         })
         .error((errorMessage) => {
           res.status(400).json({error: errorMessage})
         })
     })
     ```
-1. 
+1. Make the server.js file aware of our new Artist routes by adding the following above the server.listen block:
+      ```javascript
+      server.use([
+        require('./routes/artists')
+      ])
+      ```
+1. You should now be able to visit your localhost in a browser and see something at `http://localhost:8001/artists` (where 8001 is the port number you declared in your **server.js** file)
