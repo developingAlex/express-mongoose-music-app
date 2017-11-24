@@ -83,5 +83,59 @@
     ```
 1. Note: MongoDB stores the model id is as a randomly hashed id (as oppposed to incrementing integer id like we had before in our rails apps) so there is no risk of there being a conflict when you have multiple mongodb servers working away adding different new data to themselves.
 1. After we ran the `node src/models/seeds.js` or `yarn seed` command we want to comment out the create statements that were run so that they don't run in subsequent runs.
+    * The output after a few creations the execution of `yarn seed` produces an output like this:
+        ```
+        Artists: [ { _id: 5a1768a337d7dc78cca67953, name: 'Tiesto', __v: 0 },
+        { _id: 5a176abe9450297b1c736a54, name: 'CirezD', __v: 0 } ]
+        ```
+    * The `__v` is used to help the mongo db resolve conflicts when it gets multiple instructions to update a particular model.
+    * The double underscore in the name `__v` is convention to say, 'dear programmer: don't mess with this manually'
 1. [There is a good illustration of the differences between MongoDB and rails' active records](https://github.com/Coder-Academy-Patterns/mongoose-vs-activerecord)
+1. created a routes folder **src/routes**
+1. create **src/routes/artists.js**
+1. bring in express to that and create a new instance of express router:
+    ```javascript
+    const express = require('express')
+
+    const router = express.Router()
+
+    router.get('/artists', (req,res) => {
+
+    })
+
+    module.exports = router
+    ```
+1. Prettier is a useful tool to make your code look better recommended in class.
+1. After 'bringing in' our Artist model, our code now looks like this:
+    ```javascript
+    const express = require('express')
+
+    const router = express.Router()
+    const Artist = require('../models/artist.js')
+
+    router.get('/artists', (req,res) => {
+      //ask the model to list all the documents
+      Artist.find() //<-- might take a while to get back to us so use .then to specify what to do when it returns the result.
+        .then((artists) => { //send the results back in the response once it's loaded
+          res.json(artists)
+        })
+    })
+
+    module.exports = router
+    ```
+1.  Added a find artist by id function to **src/routes/artists.js**:
+    ```javascript
+    router.get('/artists/:id', (req,res) => {
+      //get the id from the url
+      const id = req.params.id
+      //ask the model for the document with this id
+      Artist.findById(id)
+        .then((artist) => {
+          res.json(artist)
+        })
+        .error((errorMessage) => {
+          res.status(400).json({error: errorMessage})
+        })
+    })
+    ```
 1. 
