@@ -29,4 +29,15 @@ router.get('/artists/:id', (req,res) => {
     })
 })
 
+router.post('/artists', (req, res) =>{
+  const attributes = req.body
+  Artist.create(attributes)
+    .then((artist) => {
+      res.status(201).json(artist)
+    })
+    .catch((errorMessage) => {
+      res.status(400).json({error: errorMessage})
+    })
+})
+
 module.exports = router

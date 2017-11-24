@@ -1,0 +1,11 @@
+GET http://localhost:8001/artists
+
+
+###
+
+POST http://localhost:8001/artists
+Content-Type: application/json
+
+{
+  "name": "Spice Girls"
+}

@@ -150,3 +150,29 @@
       ])
       ```
 1. You should now be able to visit your localhost in a browser and see something at `http://localhost:8001/artists` (where 8001 is the port number you declared in your **server.js** file)
+1. Moving onto making a post method for the artists route to create a new artist, we need to add the ability to parse the content of the request from the user browser<br>
+Run in a terminal:
+    ```
+    yarn add body-parser
+    ```
+1. on the server.js file you can then bring it in with these lines of code:
+    ```javascript
+    const bodyParser = require('body-parser')
+
+
+    server.use(bodyParser.json())
+
+    ```
+1. in the routes/artists.js file:
+    ```javascript
+    router.post('/artists', (req, res) =>{
+      const attributes = req.body
+      Artist.create(attributes)
+        .then((artist) => {
+          res.status(201).json(artist)
+        })
+        .catch((errorMessage) => {
+          res.status(400).json({error: errorMessage})
+        })
+    })
+    ```
