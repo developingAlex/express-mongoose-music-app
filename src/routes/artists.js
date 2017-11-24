@@ -24,7 +24,7 @@ router.get('/artists/:id', (req,res) => {
         res.status(404).json({error: `Artist not found with id: ${id}`})  
       }
     })
-    .error((errorMessage) => {
+    .catch((errorMessage) => {
       res.status(400).json({error: errorMessage})
     })
 })
